@@ -12,8 +12,8 @@ class TestQuestionsPage:
         number, question = question
         question_page = QuestionsPage(driver)
         question_page.click_cookie()
-        question_page.scroll(QuestionsPage.QUESTION_1)
-        question_page.wait_and_find_element(QuestionsPage.QUESTION_1)
+        question_page.scroll_to_element()
+        question_page.wait_for_element_appears()
         question_page.click_and_get_answer(number)
         assert question_page.click_and_get_answer(number).text == question
 

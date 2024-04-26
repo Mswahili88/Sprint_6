@@ -23,7 +23,16 @@ class QuestionsPage(BasePage):
 
     @allure.step('Ищем вопросы, раскрываем их и фиксируем ответы')
     def click_and_get_answer(self, number):
-        question = (By.ID, f"accordion__heading-{number}")
-        answer = (By.ID, f"accordion__panel-{number}")
-        self.driver.find_element(*question).click()
-        return self.driver.find_element(*answer)
+        self.wait_and_find_element(self.question_locator(number)).click()
+        return self.wait_and_find_element(self.answer_locator(number))
+
+    @allure.step('Скроллим до нужного элемента')
+    def scroll_to_element(self):
+        self.scroll(self.QUESTION_1)
+
+    @allure.step('Ожидаем появления элемента, до которого скроллили')
+    def wait_for_element_appears(self):
+        self.wait_and_find_element(self.QUESTION_1)
+
+
+

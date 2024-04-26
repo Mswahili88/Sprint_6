@@ -12,7 +12,7 @@ class TestLogoPage:
         logo_page.click_cookie()
         logo_page.click_order_and_click_logo_scooter_back()
 
-        assert logo_page.driver.find_element(*LogoPage.HOME_HEADER).is_displayed()
+        assert logo_page.get_current_url() == URL.FIRST_PAGE
 
     @allure.title('Проверка редиректа на сайт Дзена по клику на лого Яндекса')
     @allure.description('Кликаем на кнопку "Принять куки", далее клик на лого Яндекса и проверяем, что произошел редирект на страничку Дзена')
@@ -20,10 +20,10 @@ class TestLogoPage:
         logo_page = LogoPage(driver)
         logo_page.click_cookie()
         logo_page.click_logo_yandex()
-        logo_page.wait_url_changes(URL.DZEN_PAGE)
-        driver.switch_to.window(driver.window_handles[-1])
+        logo_page.wait_for_url_changes_dzen()
+        logo_page.switch_driver()
         logo_page.wait_for_title()
-        assert 'dzen.ru' in logo_page.driver.current_url
+        assert 'dzen.ru' in logo_page.get_current_url()
 
 
 
